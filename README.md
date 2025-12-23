@@ -34,7 +34,7 @@ brew install --cask blackhole-2ch
 *   **Sample Rate Sync**: Open the `Audio MIDI Setup` app. Ensure both **DELL U2723QE** and **BlackHole 2ch** are set to the same sample rate (e.g., **48.0 kHz**).
 
 #### 4. Prepare the Script
-Download the file named `main.swift` in your project folder.
+Download `main.swift` into your project folder
 
 #### 5. Confirm Device Names (Crucial)
 Before compiling, ensure the strings in the `getDeviceID` function match your system's names exactly:
@@ -60,34 +60,39 @@ swiftc main.swift -o DellAudioBridge
 
 #### 8. Automate (Background & Auto-start)
 1.  **Wrap as an App**: Open **Automator** -> New **Application**.
-2.  **Add Action**: Select **Run Shell Script** and enter:
+2.  **Add Action**: Select **Run Shell Script**.
+3.  **Configure**: Enter the following (⚠️ **Replace `YOUR_USERNAME` with your real macOS username**):
     ```bash
     # Clean up old processes
     pkill DellAudioBridge
     sleep 1
-    # Start the daemon silently (Replace with your actual absolute path)
+    # Start the daemon silently
     /Users/YOUR_USERNAME/Project/AudioBridge/DellAudioBridge > /dev/null 2>&1 &
     ```
-3.  **Save**: Save as `DellAudioFix.app` in your Applications folder.
-4.  **Auto-start**: Go to `System Settings -> General -> Login Items` and add this app to the list.
+4.  **Save**: Save as `DellAudioFix.app` in your Applications folder.
+5.  **Auto-start**: Go to `System Settings -> General -> Login Items` and add this app to the list.
 
 ---
-> ### 📦 Download for Apple Silicon (M1/M2/M3/M4)
-> This binary is pre-compiled on an **M3 MacBook Air**. 
->
-> **Notice for macOS Security:**
-> Since this app is not notarized by Apple, you may see a warning. To run it:
-> 1. Download and unzip the file.
-> 2. Open Terminal in the folder and run:
->    ```bash
->    chmod +x DellAudioBridge
->    xattr -cr DellAudioBridge
->    ```
-> 3. Run it via `./DellAudioBridge` or use the Automator method described in README.
->
-> **Note:** This version will NOT work on Intel-based Macs. If you are on Intel, please compile from source using `swiftc`.
+
+## 📦 Pre-compiled Binary (Apple Silicon)
+> **Recommended for M1/M2/M3/M4 users**
+
+This binary is pre-compiled on an **M3 MacBook Air**. 
+
+**Notice for macOS Security:**
+Since this app is not notarized by Apple, you will see a security warning. To bypass it:
+1. Download and unzip the `DellAudioBridge` binary from the [Releases](https://github.com/JiPengLin/U2723QE-Volume-Fix/releases) page.
+2. Open Terminal in that folder and run:
+   ```bash
+   chmod +x DellAudioBridge
+   xattr -cr DellAudioBridge
+   ```
+3. Run it via `./DellAudioBridge` or use the Automator method described above.
+
+*Note: This version will **NOT** work on Intel-based Macs. Intel users must compile from source using `swiftc`.*
 
 ---
+
 ### 🕹 Usage
 *   **Headphone Mode**: Select **BlackHole 2ch** in the Volume menu. Use your keyboard to control the volume.
 *   **Soundbar Mode**: Select **DELL SB521A** (or other devices) in the Volume menu. The app will automatically step aside and allow native control.
