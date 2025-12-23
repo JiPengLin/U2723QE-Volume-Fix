@@ -72,7 +72,22 @@ swiftc main.swift -o DellAudioBridge
 4.  **Auto-start**: Go to `System Settings -> General -> Login Items` and add this app to the list.
 
 ---
+> ### 📦 Download for Apple Silicon (M1/M2/M3/M4)
+> This binary is pre-compiled on an **M3 MacBook Air**. 
+>
+> **Notice for macOS Security:**
+> Since this app is not notarized by Apple, you may see a warning. To run it:
+> 1. Download and unzip the file.
+> 2. Open Terminal in the folder and run:
+>    ```bash
+>    chmod +x DellAudioBridge
+>    xattr -cr DellAudioBridge
+>    ```
+> 3. Run it via `./DellAudioBridge` or use the Automator method described in README.
+>
+> **Note:** This version will NOT work on Intel-based Macs. If you are on Intel, please compile from source using `swiftc`.
 
+---
 ### 🕹 Usage
 *   **Headphone Mode**: Select **BlackHole 2ch** in the Volume menu. Use your keyboard to control the volume.
 *   **Soundbar Mode**: Select **DELL SB521A** (or other devices) in the Volume menu. The app will automatically step aside and allow native control.
